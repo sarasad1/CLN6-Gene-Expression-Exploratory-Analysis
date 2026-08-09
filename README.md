@@ -37,3 +37,15 @@ NCBI Gene Expression Omnibus (GEO):
 
 - [GSE24368](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE24368)
 - [GPL1261](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL1261)
+
+- ## Research Question
+
+Does Cln6 expression differ between wild-type and Cln6 mutant
+mouse cerebellar cells in the GSE24368 dataset?
+
+## Objective
+
+The objective of this project is to explore the expression of Cln6
+between wild-type and mutant cells, quantify the observed difference,
+and evaluate the statistical evidence for this difference using a
+simple and reproducible exploratory analysis workflow.
