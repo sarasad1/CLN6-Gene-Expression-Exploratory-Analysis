@@ -93,3 +93,34 @@ The analysis followed the following exploratory workflow:
 - matplotlib / seaborn — data visualization
 - NCBI GEO — public gene-expression dataset
 - GPL1261 annotation — probe and gene annotation
+- 
+
+## Data Inspection and Quality Checks
+
+The expression dataset contained 45,101 probe sets and 12 samples.
+
+Initial quality checks showed:
+
+- Rows: 45,101
+- Columns: 13
+- Missing expression values: 0
+- Duplicate probe IDs: 0
+- Unique probe IDs: 45,101
+
+The expression values were numeric, while probe identifiers were stored as text.
+
+The GPL1261 annotation file contained 45,101 probe annotations and was used to map probe IDs to gene symbols and Entrez Gene IDs.
+
+## Cln6 Probe Identification
+
+The GPL1261 annotation was used to identify the probe corresponding
+to the Cln6 gene.
+
+Only one probe was mapped to Cln6:
+
+| Probe ID | Gene Symbol | Entrez Gene ID |
+|---|---|---:|
+| 1454837_at | Cln6 | 76524 |
+
+This probe was therefore used for the subsequent Cln6 expression analysis.
+
