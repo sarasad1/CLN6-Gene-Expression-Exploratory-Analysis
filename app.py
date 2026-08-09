@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 
 
-
 # --------------------------------------------------
 # Page configuration
 # --------------------------------------------------
@@ -31,17 +30,18 @@ mutant_data = data.loc[data["Group"] == "Cln6_Mutant", "Expression"]
 wt_mean = wt_data.mean()
 mutant_mean = mutant_data.mean()
 
+mean_difference = mutant_mean - wt_mean
+
 # Results obtained from the statistical analysis
 # performed in the accompanying Google Colab notebook.
 
-mean_difference = mutant_mean - wt_mean
 fold_change = 0.20056976742007995
 p_value = 0.02677610935766152
 cohens_d = 3.042470743854891
 
 
 # --------------------------------------------------
-# Title and project description
+# Title
 # --------------------------------------------------
 
 st.title("🧬 CLN6 Gene Expression Explorer")
@@ -53,6 +53,35 @@ st.write(
     publicly available microarray data from GEO.
     """
 )
+
+
+# --------------------------------------------------
+# Sidebar
+# --------------------------------------------------
+
+st.sidebar.header("Explore the Data")
+
+group_option = st.sidebar.selectbox(
+    "Select group",
+    ["All", "WT", "Mutant"]
+)
+
+
+# --------------------------------------------------
+# Filter data
+# --------------------------------------------------
+
+if group_option == "WT":
+
+    filtered_data = data[data["Group"] == "Cln6_WT"].copy()
+
+elif group_option == "Mutant":
+
+    filtered_data = data[data["Group"] == "Cln6_Mutant"].copy()
+
+else:
+
+    filtered_data = data.copy()
 
 
 # --------------------------------------------------
@@ -90,7 +119,7 @@ col4.metric(
 
 st.subheader("CLN6 Expression by Sample")
 
-plot_data = data.copy()
+plot_data = filtered_data.copy()
 
 plot_data["Group"] = plot_data["Group"].replace({
     "Cln6_WT": "WT",
@@ -99,10 +128,24 @@ plot_data["Group"] = plot_data["Group"].replace({
 
 st.scatter_chart(
     plot_data,
-    x="Group",
+    x="Sample",
     y="Expression",
     color="Group"
 )
+
+
+# --------------------------------------------------
+# Selected data
+# --------------------------------------------------
+
+st.subheader("Selected Samples")
+
+st.dataframe(
+    filtered_data,
+    use_container_width=True,
+    hide_index=True
+)
+
 
 # --------------------------------------------------
 # Statistical summary
@@ -169,13 +212,13 @@ st.subheader("Dataset Information")
 
 st.write(
     """
-    Dataset: GSE24368
+    **Dataset:** GSE24368
 
-    Platform: Affymetrix Mouse Genome 430 2.0 Array (GPL1261)
+    **Platform:** Affymetrix Mouse Genome 430 2.0 Array (GPL1261)
 
-    CLN6 probe: 1454837_at
+    **CLN6 probe:** 1454837_at
 
-    Groups analyzed:
+    **Groups analyzed:**
     - 3 Cln6_WT samples
     - 3 Cln6_Mutant samples
     """
@@ -197,17 +240,4 @@ st.write(
       but do not establish causality.
     - Additional experimental validation would be required.
     """
-)
-
-
-# --------------------------------------------------
-# Expression data
-# --------------------------------------------------
-
-st.subheader("Expression Data")
-
-st.dataframe(
-    data,
-    use_container_width=True,
-    hide_index=True
 )
