@@ -32,8 +32,8 @@ mutant_mean = mutant_data.mean()
 
 mean_difference = mutant_mean - wt_mean
 
-# Results obtained from the statistical analysis
-# performed in the accompanying Google Colab notebook.
+# Statistical results obtained from the accompanying
+# Google Colab analysis.
 
 fold_change = 0.20056976742007995
 p_value = 0.02677610935766152
@@ -41,14 +41,14 @@ cohens_d = 3.042470743854891
 
 
 # --------------------------------------------------
-# Title
+# Title and project description
 # --------------------------------------------------
 
 st.title("🧬 CLN6 Gene Expression Explorer")
 
 st.write(
     """
-    An exploratory analysis of CLN6 gene expression in
+    An exploratory re-analysis of CLN6 gene expression in
     wild-type and mutant mouse cerebellar cells using
     publicly available microarray data from GEO.
     """
@@ -103,7 +103,7 @@ col2.metric(
 )
 
 col3.metric(
-    "Fold Change",
+    "Mutant / WT Fold Change",
     f"{fold_change:.2f}"
 )
 
@@ -135,7 +135,7 @@ st.scatter_chart(
 
 
 # --------------------------------------------------
-# Selected data
+# Selected samples
 # --------------------------------------------------
 
 st.subheader("Selected Samples")
@@ -155,8 +155,8 @@ st.subheader("Statistical Summary")
 
 stats_table = pd.DataFrame({
     "Measure": [
-        "WT mean",
-        "Mutant mean",
+        "WT mean (log2 expression)",
+        "Mutant mean (log2 expression)",
         "Mean difference (Mutant - WT)",
         "Fold change (Mutant / WT)",
         "Welch's t-test p-value",
@@ -187,19 +187,19 @@ st.subheader("Exploratory Interpretation")
 
 st.write(
     """
-    CLN6 expression appears substantially higher in the
-    wild-type group than in the mutant group.
+    CLN6 expression appears higher in the wild-type group
+    than in the mutant group.
 
     The mutant-to-wild-type fold change was approximately
-    0.20, indicating that the mutant group had about 20%
-    of the wild-type expression level on the original
-    expression scale.
+    0.20 after back-transformation from the log2 expression
+    scale. This corresponds to approximately 20% of the
+    wild-type expression level on the linear scale.
 
-    Welch's t-test produced a p-value of approximately
-    0.0268. Because the analysis included only three
-    biological replicates per group, this result should
-    be interpreted as an exploratory observation rather
-    than definitive evidence of a biological effect.
+    Welch's t-test produced a p-value of approximately 0.0268.
+    However, only three biological replicates were available
+    per group. Therefore, this result should be interpreted
+    as exploratory evidence of a difference rather than
+    definitive evidence of a biological effect.
     """
 )
 
@@ -214,7 +214,13 @@ st.write(
     """
     **Dataset:** GSE24368
 
+    **Organism:** Mus musculus
+
     **Platform:** Affymetrix Mouse Genome 430 2.0 Array (GPL1261)
+
+    **Data type:** Microarray gene expression
+
+    **Preprocessing:** GC-RMA normalized log2 expression values
 
     **CLN6 probe:** 1454837_at
 
@@ -235,9 +241,9 @@ st.write(
     """
     - Only three biological replicates were available for each group.
     - This is an exploratory single-gene analysis.
-    - The analysis used one CLN6 probe from an Affymetrix microarray.
-    - The results show an association between genotype and expression,
-      but do not establish causality.
+    - The analysis uses one CLN6 probe from an Affymetrix microarray.
+    - The results indicate an association between genotype and
+      CLN6 expression but do not establish causality.
     - Additional experimental validation would be required.
     """
 )
