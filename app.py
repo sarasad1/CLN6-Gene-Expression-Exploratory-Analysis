@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+
 
 
 # --------------------------------------------------
@@ -97,37 +97,12 @@ plot_data["Group"] = plot_data["Group"].replace({
     "Cln6_Mutant": "Mutant"
 })
 
-fig, ax = plt.subplots(figsize=(8, 5))
-
-for group in ["WT", "Mutant"]:
-
-    group_data = plot_data[plot_data["Group"] == group]
-
-    ax.scatter(
-        group_data["Group"],
-        group_data["Expression"],
-        s=100,
-        label=group
-    )
-
-    for _, row in group_data.iterrows():
-
-        ax.annotate(
-            row["Sample"],
-            (row["Group"], row["Expression"]),
-            xytext=(5, 5),
-            textcoords="offset points",
-            fontsize=8
-        )
-
-ax.set_ylabel("Expression (log2)")
-ax.set_xlabel("Group")
-ax.set_title("CLN6 Expression in WT and Mutant Cells")
-
-ax.legend()
-
-st.pyplot(fig)
-
+st.scatter_chart(
+    plot_data,
+    x="Group",
+    y="Expression",
+    color="Group"
+)
 
 # --------------------------------------------------
 # Statistical summary
