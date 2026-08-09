@@ -124,3 +124,54 @@ Only one probe was mapped to Cln6:
 
 This probe was therefore used for the subsequent Cln6 expression analysis.
 
+## Cln6 Expression Analysis
+
+The expression values for the Cln6 probe (1454837_at) were extracted
+for the six Cln6-related samples in GSE24368.
+
+| Group | n | Mean | SD |
+|---|---:|---:|---:|
+| Cln6 WT | 3 | 7.45 | 0.59 |
+| Cln6 Mutant | 3 | 5.13 | 0.90 |
+
+The mean expression was lower in the Cln6 mutant group compared with
+the wild-type group.
+
+### Exploratory Visualization
+
+The expression values were visualized by group to examine the
+distribution and magnitude of the difference between wild-type and
+mutant samples.
+
+The visualization showed consistently lower Cln6 expression values
+in the mutant samples compared with the wild-type samples.
+
+## Statistical Analysis
+
+Because the two groups contained only three biological replicates
+each, Welch's t-test was used as an exploratory comparison without
+assuming equal variances between the groups.
+
+The results were:
+
+- Welch's t-statistic: 3.73
+- p-value: 0.0268
+
+The p-value provides nominal statistical evidence of a difference
+between the two groups. However, the small sample size limits the
+strength and generalizability of this finding.
+
+### Effect Size and Fold Change
+
+The mean difference between mutant and wild-type expression was:
+
+−2.32 log2 expression units
+
+The estimated fold change was:
+
+Mutant / WT = 0.20
+
+This indicates that the measured Cln6 expression in the mutant group
+was approximately 20% of the wild-type mean on the corresponding
+expression scale.
+
