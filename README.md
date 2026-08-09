@@ -175,3 +175,70 @@ This indicates that the measured Cln6 expression in the mutant group
 was approximately 20% of the wild-type mean on the corresponding
 expression scale.
 
+## Biological Interpretation
+
+The exploratory analysis showed substantially lower Cln6 expression
+in the mutant group compared with wild-type cells.
+
+The observed difference is biologically consistent with the
+experimental design of GSE24368, which includes CbCln6 mutant cells
+used to investigate molecular responses associated with CLN6-related
+neuronal ceroid lipofuscinosis.
+
+The original study also investigated Cln6 expression experimentally
+and reported reduced Cln6 mRNA in the mutant cells using qRT-PCR.
+However, the original Affymetrix analysis did not identify Cln6 as
+significantly altered according to the study's genome-wide analysis
+criteria.
+
+Therefore, the present result should be interpreted as an exploratory
+observation rather than independent evidence of a causal effect of
+the mutation on Cln6 expression.
+
+## Limitations
+
+Several limitations should be considered when interpreting this
+analysis:
+
+- The analysis included only three biological replicates per group,
+  resulting in limited statistical power.
+- The analysis focused on a single gene rather than genome-wide
+  differential expression.
+- The expression data were generated using an Affymetrix microarray
+  platform and processed using gcRMA.
+- The analysis used a single Cln6 probe and therefore does not assess
+  all possible transcript-level changes.
+- The observed association between genotype and Cln6 expression does
+  not establish causality.
+- Additional experimental validation would be required to confirm
+  the observed expression difference.
+
+## Conclusion
+
+This exploratory analysis identified lower Cln6 expression in
+CbCln6 mutant mouse cerebellar cells compared with wild-type cells.
+
+The mutant group showed a lower mean expression level, with a
+mutant-to-wild-type fold change of approximately 0.20. Welch's
+t-test provided nominal statistical evidence for a difference
+between the groups.
+
+However, the small sample size and the exploratory nature of the
+analysis limit the strength of the conclusion.
+
+Overall, this project demonstrates a reproducible workflow for
+exploring a publicly available gene-expression dataset, from probe
+annotation and gene-level extraction to statistical comparison and
+biological interpretation.
+
+## References
+
+1. NCBI Gene Expression Omnibus (GEO). GSE24368.
+   https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE24368
+
+2. NCBI Gene Expression Omnibus (GEO). GPL1261.
+   https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL1261
+
+3. Original study associated with GSE24368.
+   PubMed: https://pubmed.ncbi.nlm.nih.gov/21359198/
+
