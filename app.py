@@ -407,7 +407,42 @@ st.write(
     """
 )
 
+# --------------------------------------------------
+# Biological Interpretation
+# --------------------------------------------------
 
+st.subheader("🧠 Biological Interpretation")
+
+st.markdown("""
+The analysis showed lower Cln6 expression in the mutant group compared
+with the wild-type group.
+
+The mean expression was approximately 7.45 in the wild-type samples
+and 5.13 in the mutant samples. The difference was about -2.32 on the
+log2 expression scale, corresponding to a mutant-to-wild-type fold
+change of approximately 0.20.
+
+This means that the mutant samples showed substantially lower measured
+Cln6 expression than the wild-type samples in this dataset.
+
+This observation is consistent with the biological context of the
+experiment, which included Cln6 mutant cerebellar cells. However, the
+analysis is based on only three biological replicates per group, so the
+result should be viewed as an exploratory observation rather than
+definitive evidence of a biological effect.
+
+Importantly, this analysis shows an association between the Cln6 mutant
+condition and lower Cln6 expression. It does not establish that the
+mutation directly caused the observed expression change.
+""")
+
+st.info("""
+**In simple terms:** Cln6 expression was lower in the mutant samples
+than in the wild-type samples. The result is interesting and consistent
+with the experimental context, but additional data and experimental
+validation would be needed to determine how this change relates to
+CLN6 disease mechanisms.
+""")
 # --------------------------------------------------
 # Limitations
 # --------------------------------------------------
