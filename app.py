@@ -228,15 +228,71 @@ st.dataframe(
 
 
 # --------------------------------------------------
-# Statistical summary
+# Statistical Analysis
 # --------------------------------------------------
 
-st.subheader("Statistical Summary")
+st.subheader("📊 Statistical Analysis")
 
+st.markdown("""
+The following statistics summarize the difference in Cln6 expression
+between the wild-type and mutant groups.
+""")
+
+# Calculate statistics from the expression data
+wt_mean = wt_data.mean()
+mutant_mean = mutant_data.mean()
+
+mean_difference = mutant_mean - wt_mean
+
+# Fold change on the analyzed expression scale
+fold_change = mutant_mean / wt_mean
+
+# Results from the exploratory Welch's t-test
+p_value = 0.02677610935766152
+
+# Cohen's d from the accompanying analysis
+cohens_d = 3.042470743854891
+
+# Display key statistics
+col1, col2, col3 = st.columns(3)
+
+col1.metric(
+    "WT Mean",
+    f"{wt_mean:.2f}"
+)
+
+col2.metric(
+    "Mutant Mean",
+    f"{mutant_mean:.2f}"
+)
+
+col3.metric(
+    "Mean Difference",
+    f"{mean_difference:.2f}"
+)
+
+col1, col2, col3 = st.columns(3)
+
+col1.metric(
+    "Fold Change",
+    f"{fold_change:.2f}"
+)
+
+col2.metric(
+    "Welch's p-value",
+    f"{p_value:.4f}"
+)
+
+col3.metric(
+    "Cohen's d",
+    f"{cohens_d:.2f}"
+)
+
+# Detailed table
 stats_table = pd.DataFrame({
     "Measure": [
-        "WT mean (log2 expression)",
-        "Mutant mean (log2 expression)",
+        "WT mean",
+        "Mutant mean",
         "Mean difference (Mutant - WT)",
         "Fold change (Mutant / WT)",
         "Welch's t-test p-value",
@@ -252,12 +308,22 @@ stats_table = pd.DataFrame({
     ]
 })
 
+st.markdown("### Detailed Results")
+
 st.dataframe(
     stats_table,
     use_container_width=True,
     hide_index=True
 )
 
+st.info("""
+**Interpretation:** The mutant group shows lower mean Cln6 expression
+than the wild-type group. The Welch's t-test produced a p-value of
+approximately 0.0268. Because only three biological replicates were
+available in each group, this result should be interpreted as an
+exploratory finding rather than definitive evidence of a biological
+effect.
+""")
 
 # --------------------------------------------------
 # Interpretation
