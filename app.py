@@ -158,27 +158,61 @@ col4.metric(
     f"{p_value:.4f}"
 )
 
-
 # --------------------------------------------------
-# Expression visualization
+# CLN6 Expression
 # --------------------------------------------------
 
-st.subheader("CLN6 Expression by Sample")
+st.subheader("🧬 CLN6 Expression")
 
-plot_data = filtered_data.copy()
+st.markdown("""
+Explore the measured Cln6 expression values for the analyzed samples.
+The values are shown individually to make the variation between
+biological replicates visible.
+""")
 
-plot_data["Group"] = plot_data["Group"].replace({
+# Group selection
+group_option = st.radio(
+    "Select samples to display:",
+    ["All samples", "WT", "Mutant"],
+    horizontal=True
+)
+
+# Prepare display data
+expression_data = data.copy()
+
+expression_data["Display Group"] = expression_data["Group"].replace({
     "Cln6_WT": "WT",
     "Cln6_Mutant": "Mutant"
 })
 
+# Apply selection
+if group_option == "WT":
+    expression_data = expression_data[
+        expression_data["Display Group"] == "WT"
+    ]
+
+elif group_option == "Mutant":
+    expression_data = expression_data[
+        expression_data["Display Group"] == "Mutant"
+    ]
+
+# Expression plot
 st.scatter_chart(
-    plot_data,
-    x="Sample",
-    y="Expression",
-    color="Group"
+    expression_data,
+    x="Display Group",
+    y="Expression"
 )
 
+# Show selected values
+st.markdown("### Expression Values")
+
+st.dataframe(
+    expression_data[
+        ["Sample", "Display Group", "Expression"]
+    ],
+    use_container_width=True,
+    hide_index=True
+)
 
 # --------------------------------------------------
 # Selected samples
