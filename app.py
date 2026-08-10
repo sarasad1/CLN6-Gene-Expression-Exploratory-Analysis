@@ -459,3 +459,36 @@ st.write(
     - Additional experimental validation would be required.
     """
 )
+
+# --------------------------------------------------
+# Future Directions
+# --------------------------------------------------
+
+st.subheader("🚀 Future Directions")
+
+st.markdown("""
+This analysis provides an initial view of how CLN6 expression differs
+between wild-type and mutant samples. Several directions could build
+on this work and provide a broader understanding of CLN6 disease
+mechanisms:
+
+- **Increase the sample size:** Additional biological replicates could
+  help determine whether the observed expression difference is
+  consistent across samples.
+
+- **Expand beyond a single gene:** A genome-wide analysis could be used
+  to identify broader molecular changes associated with CLN6 deficiency.
+
+- **Integrate transcriptomic and proteomic data:** Comparing changes at
+  the RNA and protein levels could provide a more complete view of the
+  molecular consequences of CLN6 loss.
+
+- **Investigate affected cellular pathways:** Broader molecular
+  analyses could help identify pathways and cellular processes affected
+  by CLN6 deficiency, including processes related to ER and lysosomal
+  function.
+
+- **Experimental validation:** Computational findings could be followed
+  by independent laboratory experiments to determine whether the
+  observed molecular changes are reproducible and biologically relevant.
+""")
