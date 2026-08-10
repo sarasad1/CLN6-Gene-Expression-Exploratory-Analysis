@@ -643,7 +643,7 @@ The workflow included:
 st.divider()
 
 st.markdown(
-    """
+"""
 ### CLN6 Gene Expression Analysis Dashboard
 
 **Developed by Sara Saad AlJuhani**
