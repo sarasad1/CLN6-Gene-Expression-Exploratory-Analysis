@@ -1,3 +1,4 @@
+```python
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -54,7 +55,7 @@ data["Expression"] = pd.to_numeric(
     errors="coerce"
 )
 
-# Check for missing expression values
+# Check for missing values
 if data["Expression"].isna().any():
     st.error(
         "Some expression values are missing or are not numeric."
@@ -63,7 +64,7 @@ if data["Expression"].isna().any():
 
 
 # ============================================================
-# Prepare WT and Mutant Groups
+# Prepare Cln6 Groups
 # ============================================================
 
 wt_data = data.loc[
@@ -74,15 +75,14 @@ wt_data = data.loc[
 mutant_data = data.loc[
     data["Group"] == "Cln6_Mutant",
     "Expression"
-].astype(float
-)
+].astype(float)
 
 
 # Check that both groups are available
 if len(wt_data) < 2 or len(mutant_data) < 2:
     st.error(
-        "At least two observations are required in each group "
-        "for the statistical analysis."
+        "At least two observations are required in each "
+        "Cln6 group for statistical analysis."
     )
     st.stop()
 
@@ -102,14 +102,14 @@ mutant_sd = mutant_data.std(ddof=1)
 # Log2 Fold Change and Fold Change
 # ============================================================
 
-# The expression values are on a log2 scale.
-# Therefore, the difference between the group means
+# Expression values are on a log2 scale.
+# Therefore, the difference between group means
 # represents the log2 fold change.
 
 log2_fold_change = mutant_mean - wt_mean
 
 # Back-transform the log2 fold change
-# to obtain the fold change on the linear scale.
+# to obtain the mutant-to-WT fold change.
 
 fold_change = 2 ** log2_fold_change
 
@@ -141,8 +141,8 @@ pooled_sd = np.sqrt(
     )
 )
 
-# Same direction as the fold change:
-# negative value = lower expression in mutant group
+# Negative value indicates lower expression
+# in the mutant group relative to WT.
 
 cohens_d = (
     (mutant_mean - wt_mean)
@@ -172,7 +172,7 @@ The workflow includes dataset inspection, CLN6 probe-based expression
 analysis, statistical comparison, and biological interpretation.
 
 The results are presented through an interactive Streamlit dashboard
-to make the analysis easier to explore and reproduce.
+as an exploratory re-analysis of publicly available data.
 """
 )
 
@@ -218,18 +218,17 @@ st.subheader("📂 Dataset & Samples")
 
 st.markdown(
     """
-The original GEO study contains four experimental groups:
-wild-type and mutant cells for both Cln3 and Cln6.
+The original GEO study includes wild-type and mutant cerebellar
+cell groups for both Cln3 and Cln6.
 
-For this project, the analysis is focused specifically on the
+For this project, the analysis focuses specifically on the
 **Cln6 wild-type and Cln6 mutant groups**.
 """
 )
 
 n_samples = len(data)
 
-groups = data["Group"].unique()
-n_groups = len(groups)
+n_groups = data["Group"].nunique()
 
 wt_count = (
     data["Group"] == "Cln6_WT"
@@ -247,7 +246,7 @@ mutant_count = (
 col1, col2, col3, col4 = st.columns(4)
 
 col1.metric(
-    "Samples analyzed",
+    "Samples in dataset",
     n_samples
 )
 
@@ -322,7 +321,7 @@ st.markdown(
     """
 The plot below shows the individual Cln6 expression values for
 the selected samples. Displaying individual observations makes
-the variation between samples within each group visible.
+the variation between biological replicates visible.
 """
 )
 
@@ -365,23 +364,6 @@ st.dataframe(
 
 
 # ============================================================
-# Selected Samples
-# ============================================================
-
-st.subheader("📋 Selected Samples")
-
-st.markdown(
-    f"Showing samples selected from the sidebar: **{group_option}**"
-)
-
-st.dataframe(
-    filtered_data,
-    use_container_width=True,
-    hide_index=True
-)
-
-
-# ============================================================
 # Statistical Analysis
 # ============================================================
 
@@ -389,17 +371,17 @@ st.subheader("📊 Statistical Analysis")
 
 st.markdown(
     """
-The expression values are reported on a log2 scale.
+The expression values are reported on a **log2 scale**.
 
 Therefore:
 
 - The difference between the group means represents the
   **log2 fold change**.
-- The log2 fold change can be back-transformed to obtain
-  the **fold change** on the linear scale.
-- Welch's t-test is used to compare the two groups without
-  assuming equal variances.
-- Cohen's d is included to describe the magnitude of the
+- The log2 fold change is back-transformed to obtain the
+  **mutant-to-WT fold change**.
+- Welch's t-test compares the two groups without assuming
+  equal variances.
+- Cohen's d describes the standardized magnitude of the
   observed difference.
 """
 )
@@ -425,7 +407,6 @@ col3.metric(
     "Log2 Fold Change",
     f"{log2_fold_change:.2f}"
 )
-
 
 col1, col2, col3 = st.columns(3)
 
@@ -495,13 +476,13 @@ st.info(
 expression than the wild-type group.
 
 The log2 fold change is approximately **-2.32**, corresponding
-to a mutant-to-wild-type fold change of approximately **0.20**
-after back-transformation.
+to a mutant-to-WT fold change of approximately **0.20** after
+back-transformation.
 
 Welch's t-test gives a p-value of approximately **0.0268**.
 
-Because only three samples were available in each Cln6 group,
-the statistical result should be interpreted as an **exploratory
+Because only three biological replicates were available in each
+Cln6 group, this result should be interpreted as an **exploratory
 finding** rather than definitive evidence of a biological effect.
 """
 )
@@ -522,7 +503,7 @@ The mean expression was approximately **7.45** in the wild-type
 samples and **5.13** in the mutant samples.
 
 This corresponds to a difference of approximately **-2.32 on the
-log2 expression scale** and a mutant-to-wild-type fold change of
+log2 expression scale** and a mutant-to-WT fold change of
 approximately **0.20**.
 
 The observation is consistent with the experimental context of the
@@ -535,15 +516,6 @@ for the observed difference.
 """
 )
 
-st.info(
-    """
-**In simple terms:** Cln6 expression was lower in the mutant samples
-than in the wild-type samples. This provides an initial computational
-observation that can be used to motivate broader investigation of
-the molecular consequences of CLN6 deficiency.
-"""
-)
-
 
 # ============================================================
 # Limitations
@@ -553,7 +525,7 @@ st.subheader("⚠️ Limitations")
 
 st.markdown(
     """
-- Only three samples were available in each Cln6 group.
+- Only three biological replicates were available in each Cln6 group.
 - The analysis focuses on a single gene/probe rather than
   genome-wide differential expression.
 - The analysis uses one CLN6 probe from an Affymetrix microarray.
@@ -584,8 +556,8 @@ Possible next steps include:
 - **Genome-wide transcriptomic analysis** to identify broader
   molecular changes associated with CLN6 deficiency.
 
-- **Functional enrichment and pathway analysis** to investigate
-  cellular processes affected by the observed gene-expression changes.
+- **Pathway and functional analysis** to investigate cellular
+  processes affected by broader gene-expression changes.
 
 - **Integration of transcriptomic and proteomic data** to compare
   molecular changes at the RNA and protein levels.
@@ -638,14 +610,13 @@ st.markdown(
 
 ### Original Study
 
-*Cao et al. Distinct Early Molecular Responses to Mutations
-Causing vLINCL and JNCL Presage ATP Synthase Subunit c
+Cao et al. (2011), *Distinct Early Molecular Responses to
+Mutations Causing vLINCL and JNCL Presage ATP Synthase Subunit C
 Accumulation in Cerebellar Cells.*
 
-The original study reported that gene-expression experiments
-used three different cell lines per genotype and that the
-microarray data were background-corrected and normalized using
-gcRMA.
+The original study used three biological samples per genotype
+for the gene-expression experiments. The microarray data were
+background-corrected and normalized using gcRMA.
 
 ### Reproducibility
 
@@ -673,14 +644,14 @@ st.divider()
 
 st.markdown(
     """
-**Tools used:** Python • pandas • NumPy • SciPy • Streamlit
+### CLN6 Gene Expression Analysis Dashboard
 
-**Data source:** NCBI Gene Expression Omnibus (GEO)
+**Developed by Sara Saad AlJuhani**
 
-Developed by Sara Saad AlJuhani
+Bachelor of Chemistry | Bioinformatics Enthusiast
 
-Bachelor of Chemistry | Bioinformatics Enthusia
+**Data Source:** NCBI Gene Expression Omnibus (GEO)
 
-**Project:** CLN6 Gene Expression Exploratory Analysis
+**Built using:** Python • Streamlit • Pandas • NumPy • SciPy
 """
 )
