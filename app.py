@@ -492,3 +492,46 @@ mechanisms:
   by independent laboratory experiments to determine whether the
   observed molecular changes are reproducible and biologically relevant.
 """)
+
+# --------------------------------------------------
+# References & Reproducibility
+# --------------------------------------------------
+
+st.subheader("📚 References & Reproducibility")
+
+st.markdown("""
+### Data Source
+
+The expression data used in this project were obtained from the
+NCBI Gene Expression Omnibus (GEO):
+
+- **GEO accession:** GSE24368
+- **Platform:** GPL1261 — Affymetrix Mouse Genome 430 2.0 Array
+- **CLN6 probe:** 1454837_at
+
+### Original Study
+
+The dataset is associated with the study:
+
+*Distinct Early Molecular Responses to Mutations Causing vLINCL
+and JNCL Presage ATP Synthase Subunit c Accumulation in Cerebellar Cells.*
+
+### Reproducibility
+
+The analysis was performed using Python in Google Colab.
+
+The workflow included dataset inspection, probe annotation,
+CLN6 expression extraction, descriptive statistics, statistical
+comparison, and biological interpretation.
+
+The final results were presented through an interactive Streamlit
+dashboard.
+""")
+
+st.divider()
+
+st.markdown("""
+**Tools used:** Python • pandas • NumPy • SciPy • Streamlit
+
+**Data source:** NCBI Gene Expression Omnibus (GEO)
+""")
