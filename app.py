@@ -94,7 +94,42 @@ else:
 
     filtered_data = data.copy()
 
+# --------------------------------------------------
+# Dataset & Samples
+# --------------------------------------------------
 
+st.subheader("📂 Dataset & Samples")
+
+st.markdown("""
+The analysis uses publicly available gene expression data from the
+NCBI Gene Expression Omnibus (GEO).
+
+The original dataset contains 12 samples representing different
+experimental groups. For this analysis, we focused specifically on
+the samples associated with the Cln6 genotype.
+""")
+
+# Number of samples and groups from the loaded data
+n_samples = len(data)
+groups = data["Group"].unique()
+n_groups = len(groups)
+
+wt_count = (data["Group"] == "Cln6_WT").sum()
+mutant_count = (data["Group"] == "Cln6_Mutant").sum()
+
+col1, col2, col3, col4 = st.columns(4)
+
+col1.metric("Samples analyzed", n_samples)
+col2.metric("Experimental groups", n_groups)
+col3.metric("Cln6 WT", wt_count)
+col4.metric("Cln6 Mutant", mutant_count)
+
+st.markdown("""
+**Dataset:** GSE24368  
+**Organism:** *Mus musculus*  
+**Platform:** Affymetrix Mouse Genome 430 2.0 Array  
+**CLN6 probe:** 1454837_at
+""")
 # --------------------------------------------------
 # Key results
 # --------------------------------------------------
