@@ -48,13 +48,11 @@ if missing_columns:
     st.stop()
 
 
-# Convert expression values to numeric
 data["Expression"] = pd.to_numeric(
     data["Expression"],
     errors="coerce"
 )
 
-# Check for missing values
 if data["Expression"].isna().any():
     st.error(
         "Some expression values are missing or are not numeric."
@@ -76,8 +74,6 @@ mutant_data = data.loc[
     "Expression"
 ].astype(float)
 
-
-# Check that both groups are available
 if len(wt_data) < 2 or len(mutant_data) < 2:
     st.error(
         "At least two observations are required in each "
@@ -107,8 +103,8 @@ mutant_sd = mutant_data.std(ddof=1)
 
 log2_fold_change = mutant_mean - wt_mean
 
-# Back-transform the log2 fold change
-# to obtain the mutant-to-WT fold change.
+# Back-transform the log2 fold change to obtain
+# the mutant-to-WT fold change.
 
 fold_change = 2 ** log2_fold_change
 
@@ -131,8 +127,7 @@ t_statistic, p_value = ttest_ind(
 pooled_sd = np.sqrt(
     (
         (len(wt_data) - 1) * wt_data.var(ddof=1)
-        +
-        (len(mutant_data) - 1) * mutant_data.var(ddof=1)
+        + (len(mutant_data) - 1) * mutant_data.var(ddof=1)
     )
     /
     (
@@ -226,7 +221,6 @@ For this project, the analysis focuses specifically on the
 )
 
 n_samples = len(data)
-
 n_groups = data["Group"].nunique()
 
 wt_count = (
@@ -642,7 +636,7 @@ The workflow included:
 st.divider()
 
 st.markdown(
-"""
+    """
 ### CLN6 Gene Expression Analysis Dashboard
 
 **Developed by Sara Saad AlJuhani**
