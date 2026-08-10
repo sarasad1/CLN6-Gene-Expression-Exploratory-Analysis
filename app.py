@@ -46,13 +46,24 @@ cohens_d = 3.042470743854891
 
 st.title("🧬 CLN6 Gene Expression Explorer")
 
-st.write(
-    """
-    An exploratory re-analysis of CLN6 gene expression in
-    wild-type and mutant mouse cerebellar cells using
-    publicly available microarray data from GEO.
-    """
-)
+st.markdown("""
+### Project Overview
+
+This project explores Cln6 gene expression in wild-type and
+Cln6 mutant mouse cerebellar cells using publicly available
+microarray data from the NCBI Gene Expression Omnibus (GEO).
+
+The analysis focuses on a simple research question:
+
+> Does Cln6 expression differ between wild-type and Cln6 mutant cells?
+
+The workflow starts with dataset inspection and probe annotation,
+followed by gene-level expression comparison, statistical analysis,
+and biological interpretation.
+
+The results are presented through an interactive dashboard to make
+the analysis easier to explore and understand.
+""")
 
 
 # --------------------------------------------------
