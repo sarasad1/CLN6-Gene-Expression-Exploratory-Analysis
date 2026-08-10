@@ -238,14 +238,22 @@ The following statistics summarize the difference in Cln6 expression
 between the wild-type and mutant groups.
 """)
 
-# Calculate statistics from the expression data
+# --------------------------------------------------
+# Calculate descriptive statistics
+# --------------------------------------------------
+
 wt_mean = wt_data.mean()
 mutant_mean = mutant_data.mean()
 
-mean_difference = mutant_mean - wt_mean
+# Difference between group means on the log2 expression scale
+log2_fold_change = mutant_mean - wt_mean
 
-# Fold change on the analyzed expression scale
-fold_change = mutant_mean / wt_mean
+# Convert log2 fold change to fold change on the original scale
+fold_change = 2 ** log2_fold_change
+
+# --------------------------------------------------
+# Statistical results
+# --------------------------------------------------
 
 # Results from the exploratory Welch's t-test
 p_value = 0.02677610935766152
@@ -253,7 +261,10 @@ p_value = 0.02677610935766152
 # Cohen's d from the accompanying analysis
 cohens_d = 3.042470743854891
 
+# --------------------------------------------------
 # Display key statistics
+# --------------------------------------------------
+
 col1, col2, col3 = st.columns(3)
 
 col1.metric(
@@ -268,32 +279,41 @@ col2.metric(
 
 col3.metric(
     "Mean Difference",
-    f"{mean_difference:.2f}"
+    f"{log2_fold_change:.2f}"
 )
 
 col1, col2, col3 = st.columns(3)
 
 col1.metric(
+    "Log2 Fold Change",
+    f"{log2_fold_change:.2f}"
+)
+
+col2.metric(
     "Fold Change",
     f"{fold_change:.2f}"
 )
 
-col2.metric(
+col3.metric(
     "Welch's p-value",
     f"{p_value:.4f}"
 )
 
-col3.metric(
+st.metric(
     "Cohen's d",
     f"{cohens_d:.2f}"
 )
 
-# Detailed table
+# --------------------------------------------------
+# Detailed statistical results
+# --------------------------------------------------
+
 stats_table = pd.DataFrame({
     "Measure": [
         "WT mean",
         "Mutant mean",
         "Mean difference (Mutant - WT)",
+        "Log2 fold change",
         "Fold change (Mutant / WT)",
         "Welch's t-test p-value",
         "Cohen's d"
@@ -301,7 +321,8 @@ stats_table = pd.DataFrame({
     "Value": [
         wt_mean,
         mutant_mean,
-        mean_difference,
+        log2_fold_change,
+        log2_fold_change,
         fold_change,
         p_value,
         cohens_d
@@ -316,14 +337,24 @@ st.dataframe(
     hide_index=True
 )
 
+# --------------------------------------------------
+# Interpretation
+# --------------------------------------------------
+
 st.info("""
 **Interpretation:** The mutant group shows lower mean Cln6 expression
-than the wild-type group. The Welch's t-test produced a p-value of
-approximately 0.0268. Because only three biological replicates were
-available in each group, this result should be interpreted as an
-exploratory finding rather than definitive evidence of a biological
-effect.
+than the wild-type group. The difference between the group means was
+approximately -2.32 on the log2 expression scale, corresponding to a
+mutant-to-wild-type fold change of approximately 0.20 on the original
+expression scale.
+
+Welch's t-test produced a p-value of approximately 0.0268. Because only
+three biological replicates were available in each group, this result
+should be interpreted as an exploratory finding rather than definitive
+evidence of a biological effect.
 """)
+
+# --------------------------------------------------
 
 # --------------------------------------------------
 # Interpretation
