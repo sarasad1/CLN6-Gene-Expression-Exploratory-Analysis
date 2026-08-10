@@ -212,7 +212,7 @@ An interactive Streamlit dashboard was created to explore the Cln6 expression da
 **Dashboard:** Add Streamlit URL here
 
 
-Tools
+## Tools
 Python — data analysis
 Google Colab — analysis environment
 pandas — data manipulation
@@ -222,7 +222,8 @@ matplotlib / seaborn — visualization
 Streamlit — interactive dashboard
 GitHub — project documentation and version control
 NCBI GEO — public gene expression data
-References
+
+## References
 NCBI Gene Expression Omnibus (GEO). GSE24368.
 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE24368
 NCBI Gene Expression Omnibus (GEO). GPL1261 — Affymetrix Mouse Genome 430 2.0 Array.
