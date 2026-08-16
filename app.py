@@ -639,7 +639,7 @@ st.markdown(
 
 **Developed by Sara Saad AlJuhani**
 
-Bachelor of Chemistry | Bioinformatics Enthusiast
+BSc Chemistry | Independent Bioinformatics Project
 
 **Data Source:** NCBI Gene Expression Omnibus (GEO)
 
